@@ -1,0 +1,5 @@
+{
+  "hooks": {
+    "pre-commit": "yarn prettier-format && yarn lint"
+  }
+}
