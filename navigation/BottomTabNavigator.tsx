@@ -3,84 +3,110 @@
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 
-import { Ionicons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import * as React from "react";
 
+import * as React from "react";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import TabOneScreen from "../screens/TabOneScreen";
-import TabTwoScreen from "../screens/TabTwoScreen";
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from "../types";
+import ItemsScreen from "../screens/ItemsScreen";
+import RecipesScreen from "../screens/RecipesScreen";
+import {
+  BottomTabParamList,
+  ItemsParamList,
+  MapParamList,
+  RecipesParamList,
+} from "../types";
+import MapScreen from "../screens/MapScreen";
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+export const BottomTab = createMaterialBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator(): JSX.Element | null {
   const colorScheme = useColorScheme();
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+      initialRouteName="Items"
+      shifting={true}
+      activeColor={Colors[colorScheme].tint}
+      barStyle={{ backgroundColor: "white" }}
     >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Items"
+        component={ItemsNavigator}
         options={{
-          tabBarIcon: BottomTabTabBarIcon,
+          tabBarIcon: ({ color }: { color: string }) => (
+            <MaterialCommunityIcons
+              name="folder-open"
+              color={color}
+              size={26}
+            />
+          ),
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Recipes"
+        component={RecipesNavigator}
         options={{
-          tabBarIcon: BottomTabTabBarIcon,
+          tabBarIcon: ({ color }: { color: string }) => (
+            <MaterialCommunityIcons name="noodles" color={color} size={26} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Map"
+        component={MapNavigator}
+        options={{
+          tabBarIcon: ({ color }: { color: string }) => (
+            <MaterialCommunityIcons name="map-marker" color={color} size={26} />
+          ),
         }}
       />
     </BottomTab.Navigator>
   );
 }
 
-const BottomTabTabBarIcon = ({ color }: { color: string }) => (
-  <TabBarIcon name="ios-code" color={color} />
-);
-
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof Ionicons>["name"];
-  color: string;
-}) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
-}
-
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const ItemsStack = createStackNavigator<ItemsParamList>();
 
-function TabOneNavigator() {
+function ItemsNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: "Tab One Title" }}
+    <ItemsStack.Navigator>
+      <ItemsStack.Screen
+        name="ItemsScreen"
+        component={ItemsScreen}
+        options={{ headerTitle: "Items" }}
       />
-    </TabOneStack.Navigator>
+    </ItemsStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const RecipesStack = createStackNavigator<RecipesParamList>();
 
-function TabTwoNavigator() {
+function RecipesNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: "Tab Two Title" }}
+    <RecipesStack.Navigator>
+      <RecipesStack.Screen
+        name="RecipesScreen"
+        component={RecipesScreen}
+        options={{ headerTitle: "Recipes" }}
       />
-    </TabTwoStack.Navigator>
+    </RecipesStack.Navigator>
+  );
+}
+
+const MapStack = createStackNavigator<MapParamList>();
+
+function MapNavigator() {
+  return (
+    <MapStack.Navigator>
+      <MapStack.Screen
+        name="MapScreen"
+        component={MapScreen}
+        options={{ headerTitle: "Map" }}
+      />
+    </MapStack.Navigator>
   );
 }
