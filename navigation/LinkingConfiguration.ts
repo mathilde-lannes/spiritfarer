@@ -12,14 +12,21 @@ export default {
     screens: {
       Root: {
         screens: {
-          TabOne: {
+          Items: {
             screens: {
-              TabOneScreen: "one",
+              ItemsScreen: "items",
+              ItemDetailsScreen: "item-details",
             },
           },
-          TabTwo: {
+          Recipes: {
             screens: {
-              TabTwoScreen: "two",
+              RecipesScreen: "recipes",
+              RecipeDetailsScreen: "recipe-details",
+            },
+          },
+          Map: {
+            screens: {
+              MapScreen: "map",
             },
           },
         },

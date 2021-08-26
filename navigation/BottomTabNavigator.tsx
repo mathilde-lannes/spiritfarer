@@ -5,20 +5,14 @@
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
 
 import * as React from "react";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import ItemsScreen from "../screens/ItemsScreen";
-import RecipesScreen from "../screens/RecipesScreen";
-import {
-  BottomTabParamList,
-  ItemsParamList,
-  MapParamList,
-  RecipesParamList,
-} from "../types";
-import MapScreen from "../screens/MapScreen";
+import { BottomTabParamList } from "../types";
+import { ItemsNavigator } from "./ItemsNavigator";
+import { RecipesNavigator } from "./RecipesNavigator";
+import { MapNavigator } from "./MapNavigator";
 
 export const BottomTab = createMaterialBottomTabNavigator<BottomTabParamList>();
 
@@ -38,7 +32,7 @@ export default function BottomTabNavigator(): JSX.Element | null {
         options={{
           tabBarIcon: ({ color }: { color: string }) => (
             <MaterialCommunityIcons
-              name="folder-open"
+              name="bag-personal"
               color={color}
               size={26}
             />
@@ -64,49 +58,5 @@ export default function BottomTabNavigator(): JSX.Element | null {
         }}
       />
     </BottomTab.Navigator>
-  );
-}
-
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const ItemsStack = createStackNavigator<ItemsParamList>();
-
-function ItemsNavigator() {
-  return (
-    <ItemsStack.Navigator>
-      <ItemsStack.Screen
-        name="ItemsScreen"
-        component={ItemsScreen}
-        options={{ headerTitle: "Items" }}
-      />
-    </ItemsStack.Navigator>
-  );
-}
-
-const RecipesStack = createStackNavigator<RecipesParamList>();
-
-function RecipesNavigator() {
-  return (
-    <RecipesStack.Navigator>
-      <RecipesStack.Screen
-        name="RecipesScreen"
-        component={RecipesScreen}
-        options={{ headerTitle: "Recipes" }}
-      />
-    </RecipesStack.Navigator>
-  );
-}
-
-const MapStack = createStackNavigator<MapParamList>();
-
-function MapNavigator() {
-  return (
-    <MapStack.Navigator>
-      <MapStack.Screen
-        name="MapScreen"
-        component={MapScreen}
-        options={{ headerTitle: "Map" }}
-      />
-    </MapStack.Navigator>
   );
 }

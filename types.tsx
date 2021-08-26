@@ -16,10 +16,12 @@ export type BottomTabParamList = {
 
 export type ItemsParamList = {
   ItemsScreen: undefined;
+  ItemDetailsScreen: undefined;
 };
 
 export type RecipesParamList = {
   RecipesScreen: undefined;
+  RecipeDetailsScreen: undefined;
 };
 
 export type MapParamList = {

@@ -1,27 +1,24 @@
 import * as React from "react";
-import { Button, StyleSheet } from "react-native";
-import { Text, View } from "../components/Themed";
+import { StyleSheet } from "react-native";
 
-export default function RecipesScreen({ navigation }: any): JSX.Element | null {
+import EditScreenInfo from "../components/EditScreenInfo";
+import { Text, View } from "../components/Themed";
+import { Button } from "react-native";
+
+export default function RecipeDetailsScreen({
+  navigation,
+}: any): JSX.Element | null {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Recipes</Text>
+      <Text style={styles.title}>Recipe details</Text>
       <View
         style={styles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <Button
-        title="Go to Details"
-        onPress={() =>
-          navigation.navigate("Items", {
-            screen: "ItemDetailsScreen",
-            params: {
-              name: "My fav item",
-            },
-          })
-        }
-      />
+      <Button title="Go back" onPress={() => navigation.pop()} />
+
+      <EditScreenInfo path="/screens/ItemsScreen.tsx" />
     </View>
   );
 }
