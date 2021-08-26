@@ -46,7 +46,7 @@ const RecipesStackComponent = ({
 
 export function RecipesNavigator(): ReactElement {
   return (
-    <TabWithHeader>
+    <TabWithHeader img={require("../assets/images/recipes.jpg")}>
       <RecipesStackComponent />
     </TabWithHeader>
   );

@@ -36,7 +36,7 @@ const MapStackComponent = ({
 
 export function MapNavigator() {
   return (
-    <TabWithHeader>
+    <TabWithHeader img={require("../assets/images/spiritfarer.jpeg")}>
       <MapStackComponent />
     </TabWithHeader>
   );

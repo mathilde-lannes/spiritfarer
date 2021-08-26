@@ -1,11 +1,13 @@
 import React, { ReactElement } from "react";
-import { StyleSheet } from "react-native";
+import { ImageBackground, ImageURISource, StyleSheet } from "react-native";
 import { Appbar } from "react-native-paper";
 
 const TabWithHeader = ({
   children,
+  img,
 }: {
   children: ReactElement;
+  img: ImageURISource;
 }): JSX.Element => {
   const style = StyleSheet.create({
     navBar: {
@@ -23,6 +25,8 @@ const TabWithHeader = ({
       justifyContent: "center",
     },
     text: {
+      fontSize: 18,
+      fontWeight: "bold",
       color: "white",
     },
     headerStyle: {
@@ -41,19 +45,19 @@ const TabWithHeader = ({
 
     return (
       <Appbar.Header theme={{ colors: { primary: "transparent" } }}>
-        {previous ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
-        <Appbar.Content
-          title={title}
-          titleStyle={{
-            fontSize: 18,
-            fontWeight: "bold",
-          }}
-        />
+        {previous ? (
+          <Appbar.BackAction color={"white"} onPress={navigation.goBack} />
+        ) : null}
+        <Appbar.Content title={title} titleStyle={style.text} />
       </Appbar.Header>
     );
   };
 
-  return React.cloneElement(children, { style, header });
+  return (
+    <ImageBackground source={img} style={style.backgroundImage}>
+      {React.cloneElement(children, { style, header })}
+    </ImageBackground>
+  );
 };
 
 export default TabWithHeader;

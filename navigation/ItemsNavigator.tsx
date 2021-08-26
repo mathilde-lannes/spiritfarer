@@ -17,41 +17,36 @@ const ItemsStackComponent = ({
   style: StyleSheet.NamedStyles<any>;
   header: ({ scene, previous, navigation }) => JSX.Element;
 }) => (
-  <ImageBackground
-    source={require("../assets/images/spiritfarer.jpeg")}
-    style={style.backgroundImage}
+  <ItemsStack.Navigator
+    screenOptions={{
+      header,
+      cardStyle: { backgroundColor: "transparent" },
+      headerTintColor: "#ffffff",
+      headerMode: "screen",
+    }}
   >
-    <ItemsStack.Navigator
-      screenOptions={{
-        header,
-        cardStyle: { backgroundColor: "transparent" },
-        tintColor: "#ffffff",
-        headerMode: "screen",
+    <ItemsStack.Screen
+      name="ItemsScreen"
+      component={ItemsScreen}
+      options={{
+        headerTitle: "Items",
+        headerStyle: style.headerStyle,
       }}
-    >
-      <ItemsStack.Screen
-        name="ItemsScreen"
-        component={ItemsScreen}
-        options={{
-          headerTitle: "Items",
-          headerStyle: style.headerStyle,
-        }}
-      />
-      <ItemsStack.Screen
-        name="ItemDetailsScreen"
-        component={ItemDetailsScreen}
-        options={{
-          headerTitle: "Item details",
-          headerStyle: style.headerStyle,
-        }}
-      />
-    </ItemsStack.Navigator>
-  </ImageBackground>
+    />
+    <ItemsStack.Screen
+      name="ItemDetailsScreen"
+      component={ItemDetailsScreen}
+      options={{
+        headerTitle: "Item details",
+        headerStyle: style.headerStyle,
+      }}
+    />
+  </ItemsStack.Navigator>
 );
 
 export function ItemsNavigator(): ReactElement {
   return (
-    <TabWithHeader>
+    <TabWithHeader img={require("../assets/images/items.jpg")}>
       <ItemsStackComponent />
     </TabWithHeader>
   );

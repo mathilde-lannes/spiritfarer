@@ -4,11 +4,21 @@ import { StyleSheet } from "react-native";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import { Button } from "react-native";
+import Searchbar from "../components/Searchbar";
 
 export default function ItemsScreen({ navigation }: any): JSX.Element | null {
+  const handleSearch = (itemToSearch: string) => {
+    navigation.navigate("Items", {
+      screen: "ItemDetailsScreen",
+      params: {
+        name: "Bluefin tuna", // itemToSearch,
+      },
+    });
+  };
+
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.title}>omg r u working ??</Text>
+      <Searchbar onSearch={handleSearch} />
       <View style={styles.container}>
         <Text style={styles.title}>Items</Text>
         <View
