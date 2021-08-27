@@ -11,7 +11,7 @@ export default function ItemsScreen({ navigation }: any): JSX.Element | null {
     navigation.navigate("Items", {
       screen: "ItemDetailsScreen",
       params: {
-        name: "Bluefin tuna", // itemToSearch,
+        name: itemToSearch,
       },
     });
   };

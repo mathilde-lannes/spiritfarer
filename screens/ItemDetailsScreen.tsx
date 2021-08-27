@@ -1,34 +1,43 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text } from "react-native";
 import { View } from "../components/Themed";
 import ItemChip from "../components/ItemChip";
 import Quote from "../components/Quote";
+import Fish from "../db/fish";
+import { getFishImg } from "../utils/images/fishes";
 
 export default function ItemDetailsScreen({
   navigation,
   route,
 }: any): JSX.Element | null {
+  const [fish, setFish] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      const fishFromDB = await Fish.find(route.params?.name[0]);
+      setFish(fishFromDB);
+    };
+    getData();
+  }, [route.params]);
+
+  if (!fish) {
+    return <Text>loading...</Text>;
+  }
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.header}>
         <View style={styles.badges}>
-          <ItemChip text={"Tuna"} color={"danger"} />
-          <ItemChip text={"450 lights"} color={"subtle"} />
-          <ItemChip text={"Huge"} color={"accent"} />
+          <ItemChip text={fish.category} color={"danger"} />
+          <ItemChip text={fish.price + " lights"} color={"subtle"} />
+          <ItemChip text={fish.size} color={"accent"} />
         </View>
 
-        <Image
-          style={styles.image}
-          source={require("../assets/images/fishes/Sockeye_Salmon.webp")}
-        />
+        <Image style={styles.image} source={getFishImg(fish.id)} />
       </View>
       <View style={styles.container}>
-        <Quote
-          text={
-            "This huge bluefin tuna scares the lights out of me. I like this fish better on a plate of sushi."
-          }
-        />
-        <Text>{route.params?.name}</Text>
+        <Quote text={fish.description} />
       </View>
     </View>
   );

@@ -20,6 +20,7 @@ export default class Fish extends BaseModel {
       id: { type: types.INTEGER, primary_key: true },
       category: { type: types.TEXT },
       size: { type: types.TEXT },
+      description: { type: types.TEXT },
       price: { type: types.INTEGER },
     };
   }
