@@ -27,6 +27,12 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
-    }
+    },
+    "packagerOpts": {
+      "assetExts": ["db"]
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
   }
 }

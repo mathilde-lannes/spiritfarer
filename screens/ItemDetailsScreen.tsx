@@ -19,7 +19,7 @@ export default function ItemDetailsScreen({
 
         <Image
           style={styles.image}
-          source={require("../assets/images/Sockeye_Salmon.webp")}
+          source={require("../assets/images/fishes/Sockeye_Salmon.webp")}
         />
       </View>
       <View style={styles.container}>

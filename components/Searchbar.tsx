@@ -1,56 +1,36 @@
-import React, { Component, useState } from "react";
+import React, { Component, useCallback, useEffect, useState } from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
+import Fish from "../db/fish";
+import { getFishImg } from "../utils/images/fishes";
 
-const items = [
-  // this is the parent or 'item'
-  {
-    name: "Fruits",
-    id: 0,
-    // these are the children or 'sub items'
-    children: [
-      {
-        name: "Apple",
-        id: 10,
-      },
-      {
-        name: "Strawberry",
-        id: 17,
-      },
-      {
-        name: "Pineapple",
-        id: 13,
-      },
-      {
-        name: "Banana",
-        id: 14,
-      },
-      {
-        name: "Watermelon",
-        id: 15,
-      },
-      {
-        name: "Kiwi fruit",
-        id: 16,
-      },
-    ],
-  },
-  {
-    name: "Fishes",
-    id: 1,
-    // these are the children or 'sub items'
-    children: [
-      {
-        name: "Salmon",
-        id: 17,
-        icon: require("../assets/images/Sockeye_Salmon.webp"),
-      },
-    ],
-  },
-];
 const Searchbar = ({ onSearch }) => {
+  const [items, setItems] = React.useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const options = {
+        columns: "id",
+      };
+
+      const fishesResults = await Fish.query(options);
+      const fishes = fishesResults.map((fish: Fish) => ({
+        name: fish.id,
+        id: fish.id,
+        icon: getFishImg(fish.id),
+      }));
+
+      const fishCategory = {
+        name: "Fishes",
+        id: "fish",
+        children: fishes,
+      };
+      setItems([fishCategory]);
+    };
+    getData();
+  }, []);
 
   return (
     <View style={{ marginHorizontal: 20 }}>
